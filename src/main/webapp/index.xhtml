@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="jakarta.faces.facelets" xmlns:f="jakarta.faces.core"
+    xmlns:p="http://primefaces.org/ui" xmlns:h="jakarta.faces.html">
+
+<h:head>
+    <title>PrimeFaces 15 Demo - Spring Boot Starter</title>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css" />
+    <style>
+        :root {
+            --primary-500: #2563eb;
+            --primary-600: #1d4ed8;
+            --primary-50: #eff6ff;
+            --surface-0: #ffffff;
+            --surface-50: #f9fafb;
+            --surface-100: #f3f4f6;
+            --surface-border: #e5e7eb;
+            --text-color: #111827;
+            --text-muted: #6b7280;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, var(--primary-50), var(--surface-100));
+            margin: 0;
+            padding: 3rem 1.5rem;
+            color: var(--text-color);
+        }
+
+        .main-shell {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .main-card {
+            background: linear-gradient(135deg, var(--surface-0), var(--surface-50));
+            border-radius: 1.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.15);
+            padding: 2.5rem 2.25rem 2.75rem;
+        }
+
+        .header-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .header-main-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.9rem;
+            letter-spacing: -0.03em;
+        }
+
+        .header-subtitle {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .environment-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.06);
+            color: var(--primary-600);
+            font-size: 0.8rem;
+            border: 1px solid rgba(37, 99, 235, 0.18);
+        }
+
+        .demo-card {
+            margin-bottom: 1.25rem;
+        }
+
+        .demo-section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--text-muted);
+            margin: 0 0 0.6rem 0.1rem;
+        }
+
+        .demo-button {
+            margin: 0.25rem;
+        }
+
+        .demo-metric-icon {
+            font-size: 2.25rem;
+        }
+
+        .demo-metric-title {
+            margin-top: 0.75rem;
+            margin-bottom: 0.1rem;
+            font-size: 1.25rem;
+        }
+
+        .demo-metric-caption {
+            margin-top: 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .panel-subtext {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            .main-card {
+                padding: 1.75rem 1.5rem 2rem;
+            }
+
+            .header-panel {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="main-shell">
+        <div class="main-card" role="main">
+            <div class="header-panel">
+                <div>
+                    <h1 class="header-main-title">
+                        <i class="pi pi-prime" aria-hidden="true"></i>
+                        <span>PrimeFaces Spring Boot Starter</span>
+                    </h1>
+                    <p class="header-subtitle">#{testView.string}</p>
+                </div>
+                <span class="environment-badge">
+                    <i class="pi pi-bolt" aria-hidden="true"></i>
+                    <span>Ready to ship</span>
+                </span>
+            </div>
+
+            <h:form id="mainForm">
+                <!-- Main Grid Layout -->
+                <div class="grid">
+                    <!-- Left Column -->
+                    <div class="col-12 md:col-6">
+                        <!-- Input Components -->
+                        <p:panel header="Customer profile" styleClass="demo-card" toggleable="true">
+                            <f:facet name="subtitle">
+                                <span class="panel-subtext">Small, focused form with clear labels and helper
+                                    copy.</span>
+                            </f:facet>
+                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:outputLabel for="name" value="Name" />
+                                <p:inputText id="name" value="#{testView.string}" placeholder="Enter full name"
+                                    autocomplete="name" />
+
+                                <p:outputLabel for="number" value="Lucky number" />
+                                <p:inputNumber id="number" value="#{testView.integer}" placeholder="e.g. 7" />
+
+                                <p:outputLabel for="decimal" value="Budget" />
+                                <p:inputNumber id="decimal" value="#{testView.decimal}" mode="currency" currency="USD"
+                                    locale="en_US" />
+
+                                <p:outputLabel for="datePicker" value="Meeting time" />
+                                <p:datePicker id="datePicker" value="#{testView.localDateTime}" showTime="true"
+                                    pattern="dd/MM/yyyy HH:mm" placeholder="Select date and time" />
+                            </p:panelGrid>
+
+                            <p:commandButton value="Save changes" icon="pi pi-check"
+                                styleClass="ui-button-success demo-button mr-2" update="@form" />
+                            <p:commandButton value="Clear" icon="pi pi-times"
+                                styleClass="ui-button-secondary demo-button" type="reset" />
+                        </p:panel>
+
+                        <!-- Message Components -->
+                        <p:panel header="Feedback" styleClass="demo-card" toggleable="true">
+                            <f:facet name="subtitle">
+                                <span class="panel-subtext">Use different message types to validate flows
+                                    quickly.</span>
+                            </f:facet>
+                            <p:messages showDetail="true" closable="true" />
+                            <div class="flex flex-wrap gap-2" style="margin-top: .5rem;">
+                                <p:commandButton value="Success Message" icon="pi pi-check"
+                                    styleClass="ui-button-success demo-button"
+                                    actionListener="#{testView.addSuccessMessage}" update="@form" />
+                                <p:commandButton value="Info Message" icon="pi pi-info-circle"
+                                    styleClass="ui-button-info demo-button" actionListener="#{testView.addInfoMessage}"
+                                    update="@form" />
+                                <p:commandButton value="Warning Message" icon="pi pi-exclamation-triangle"
+                                    styleClass="ui-button-warning demo-button"
+                                    actionListener="#{testView.addWarningMessage}" update="@form" />
+                                <p:commandButton value="Error Message" icon="pi pi-times-circle"
+                                    styleClass="ui-button-danger demo-button"
+                                    actionListener="#{testView.addErrorMessage}" update="@form" />
+                            </div>
+                        </p:panel>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-12 md:col-6">
+                        <!-- Button Variants -->
+                        <p:panel header="Action styles" styleClass="demo-card" toggleable="true">
+                            <f:facet name="subtitle">
+                                <span class="panel-subtext">Primary vs. secondary emphasis for safer decision
+                                    making.</span>
+                            </f:facet>
+                            <div class="flex flex-wrap gap-2">
+                                <p:commandButton value="Primary" icon="pi pi-star" styleClass="demo-button" />
+                                <p:commandButton value="Success" icon="pi pi-check"
+                                    styleClass="ui-button-success demo-button" />
+                                <p:commandButton value="Info" icon="pi pi-info"
+                                    styleClass="ui-button-info demo-button" />
+                                <p:commandButton value="Warning" icon="pi pi-exclamation-triangle"
+                                    styleClass="ui-button-warning demo-button" />
+                                <p:commandButton value="Danger" icon="pi pi-times"
+                                    styleClass="ui-button-danger demo-button" />
+                                <p:commandButton value="Outlined" icon="pi pi-bookmark"
+                                    styleClass="ui-button-outlined demo-button" />
+                                <p:commandButton value="Text" icon="pi pi-heart"
+                                    styleClass="ui-button-text demo-button" />
+                                <p:commandButton value="Raised" icon="pi pi-arrow-up"
+                                    styleClass="ui-button-raised demo-button" />
+                            </div>
+                        </p:panel>
+
+                        <!-- Progress Indicators -->
+                        <p:panel header="Progress &amp; Status" styleClass="demo-card" toggleable="true">
+                            <f:facet name="subtitle">
+                                <span class="panel-subtext">Combine determinate and indeterminate indicators where
+                                    feedback matters.</span>
+                            </f:facet>
+                            <h5 class="demo-section-title">Determinate</h5>
+                            <p:progressBar value="65" displayValue="65%" style="margin-bottom: 20px;" />
+
+                            <h5 class="demo-section-title">Indeterminate</h5>
+                            <p:progressBar mode="indeterminate" style="height: 10px;" />
+                        </p:panel>
+
+                        <!-- Accordion -->
+                        <p:panel header="Guided context" styleClass="demo-card" toggleable="true">
+                            <p:accordionPanel multiple="true">
+                                <p:tab title="What is PrimeFaces?">
+                                    <p>PrimeFaces is a rich open-source UI component library for JavaServer Faces.
+                                        It offers more than 100 modern components, theming and responsive design.</p>
+                                </p:tab>
+                                <p:tab title="Spring Boot Integration">
+                                    <p>With JoinFaces you can seamlessly integrate PrimeFaces with Spring Boot,
+                                        leveraging auto-configuration and dependency management for a fast start.</p>
+                                </p:tab>
+                                <p:tab title="Key Features">
+                                    <ul>
+                                        <li>100+ UI components</li>
+                                        <li>Premium themes and templates</li>
+                                        <li>Built-in Ajax support</li>
+                                        <li>Responsive layout system</li>
+                                        <li>Touch and mobile optimization</li>
+                                    </ul>
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </div>
+                </div>
+
+                <!-- Bottom Section - Full Width Components -->
+                <div class="col-12">
+                    <!-- TabView -->
+                    <p:panel header="Analytics &amp; Data" styleClass="demo-card" toggleable="true">
+                        <f:facet name="subtitle">
+                            <span class="panel-subtext">A compact, real-world layout: metrics, table and quick
+                                settings.</span>
+                        </f:facet>
+                        <p:tabView>
+                            <p:tab title="Statistics" icon="pi pi-chart-line">
+                                <div style="padding: 20px; text-align: center;">
+                                    <h3>Performance Metrics</h3>
+                                    <div class="grid" style="margin-top: 20px;">
+                                        <div class="col-12 md:col-4">
+                                            <i class="pi pi-users demo-metric-icon" style="color: #667eea;"></i>
+                                            <h4 class="demo-metric-title">1,234</h4>
+                                            <p class="demo-metric-caption">Users</p>
+                                        </div>
+                                        <div class="col-12 md:col-4">
+                                            <i class="pi pi-chart-bar demo-metric-icon" style="color: #764ba2;"></i>
+                                            <h4 class="demo-metric-title">5,678</h4>
+                                            <p class="demo-metric-caption">Transactions</p>
+                                        </div>
+                                        <div class="col-12 md:col-4">
+                                            <i class="pi pi-money-bill demo-metric-icon" style="color: #f97316;"></i>
+                                            <h4 class="demo-metric-title">$89,012</h4>
+                                            <p class="demo-metric-caption">Revenue</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:tab>
+                            <p:tab title="Data" icon="pi pi-table">
+                                <p:dataTable var="item" value="#{testView.sampleData}" paginator="true" rows="5"
+                                    rowsPerPageTemplate="5,10,20" styleClass="p-datatable-sm"
+                                    paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+                                    <p:column headerText="ID">
+                                        <h:outputText value="#{item.id}" />
+                                    </p:column>
+                                    <p:column headerText="Name">
+                                        <h:outputText value="#{item.name}" />
+                                    </p:column>
+                                    <p:column headerText="Status">
+                                        <p:badge value="#{item.status}" severity="#{item.severity}" />
+                                    </p:column>
+                                    <p:column headerText="Actions">
+                                        <p:commandButton icon="pi pi-search" styleClass="ui-button-text ui-button-sm" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:tab>
+                            <p:tab title="Settings" icon="pi pi-cog">
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Notifications" />
+                                    <p:selectBooleanCheckbox value="#{testView.notificationsEnabled}" />
+
+                                    <p:outputLabel value="Theme" />
+                                    <p:selectOneButton value="#{testView.theme}">
+                                        <f:selectItem itemLabel="Light" itemValue="light" />
+                                        <f:selectItem itemLabel="Dark" itemValue="dark" />
+                                    </p:selectOneButton>
+                                </h:panelGrid>
+                            </p:tab>
+                        </p:tabView>
+                    </p:panel>
+                </div>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.4</version>
+		<version>3.4.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.primefaces.spring</groupId>
@@ -15,8 +15,8 @@
 	<name>starter</name>
 	<description>Starter project for Primefaces &amp; Spring Boot</description>
 	<properties>
-		<java.version>1.8</java.version>
-		<joinfaces.version>4.4.3</joinfaces.version>
+		<java.version>17</java.version>
+		<joinfaces.version>5.4.11</joinfaces.version>
 	</properties>
 
 	<dependencyManagement>
@@ -25,8 +25,8 @@
 				<groupId>org.joinfaces</groupId>
 				<artifactId>joinfaces-dependencies</artifactId>
 				<version>${joinfaces.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
+                <type>pom</type>
+                <scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -35,43 +35,13 @@
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>primefaces-spring-boot-starter</artifactId>
+			<version>${joinfaces.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>10.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>15.0.10</version>
+			<classifier>jakarta</classifier>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.joinfaces</groupId>
-					<artifactId>joinfaces-maven-plugin</artifactId>
-					<version>${joinfaces.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>classpath-scan</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-
-		<plugins>
-			<plugin>
-				<groupId>org.joinfaces</groupId>
-				<artifactId>joinfaces-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>
